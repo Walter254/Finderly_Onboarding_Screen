@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const OnboardingScreen = () => {
-  const fadeAnim = useRef(new Animated.Value(0)).current; 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
-      toValue: 1, 
-      duration: 1000, 
-      useNativeDriver: true, 
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
     }).start();
   }, [fadeAnim]);
 
@@ -19,48 +19,67 @@ const OnboardingScreen = () => {
   };
 
   return (
-    <Animated.View style={{ ...styles.background, opacity: fadeAnim }}>
+    <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
       <ImageBackground 
-        source={require('../assets/finderly.png')} 
+        source={require('../assets/mock_finderly_background.png')}
         style={styles.background}
+        resizeMode="cover"
       >
-        <View style={styles.overlay}>
-          <Text style={styles.title}>Welcome to Our App!</Text>
-          <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
-            <Text style={styles.buttonText}>Get Started</Text>
-          </TouchableOpacity>
+        <View style={styles.overlay} />
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>Snap</Text>
+          <Text style={styles.title}>Upload a Photo</Text>
         </View>
+        <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
+          <Text style={styles.buttonText}>Get Started</Text>
+        </TouchableOpacity>
       </ImageBackground>
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   background: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   overlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    width: '100%',
-    height: '50%', 
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  textContainer: {
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    paddingVertical: 20,
+    paddingHorizontal: 50,
+    width: '100%',
   },
   title: {
-    fontSize: 24,
-    fontFamily: 'Poppins', 
-    marginBottom: 20,
+    fontSize: 30,
+    fontFamily: 'Poppins',
+    color: '#fff',
+    textAlign: 'left',
+    marginBottom: 5,
   },
   button: {
     backgroundColor: '#007BFF',
     padding: 15,
-    borderRadius: 5,
+    borderRadius: 20,
+    marginBottom: 40,
+    width: '90%',
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
+    textAlign: 'center',
   },
 });
 
