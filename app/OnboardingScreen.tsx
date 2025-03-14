@@ -1,23 +1,37 @@
-import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const OnboardingScreen = () => {
+  const fadeAnim = useRef(new Animated.Value(0)).current; 
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1, 
+      duration: 1000, 
+      useNativeDriver: true, 
+    }).start();
+  }, [fadeAnim]);
+
   const handleGetStarted = () => {
-    Alert.alert("Next Screen", "This is where the next screen would be.");
+    navigation.navigate('Next Screen' as never);
   };
 
   return (
-    <ImageBackground 
-      source={require('../assets/finderly.png')} 
-      style={styles.background}
-    >
-      <View style={styles.overlay}>
-        <Text style={styles.title}>Welcome to Our App!</Text>
-        <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
-          <Text style={styles.buttonText}>Get Started</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+    <Animated.View style={{ ...styles.background, opacity: fadeAnim }}>
+      <ImageBackground 
+        source={require('../assets/finderly.png')} 
+        style={styles.background}
+      >
+        <View style={styles.overlay}>
+          <Text style={styles.title}>Welcome to Our App!</Text>
+          <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
+            <Text style={styles.buttonText}>Get Started</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    </Animated.View>
   );
 };
 
@@ -30,13 +44,13 @@ const styles = StyleSheet.create({
   overlay: {
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     width: '100%',
-    height: '50%',
+    height: '50%', 
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
     fontSize: 24,
-    fontFamily: 'Poppins', // Ensure you have the Poppins font loaded
+    fontFamily: 'Poppins', 
     marginBottom: 20,
   },
   button: {
