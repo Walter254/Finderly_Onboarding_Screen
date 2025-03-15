@@ -28,8 +28,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Onboarding">
-        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-        <Stack.Screen name="Next Screen" component={NextScreen} />
+      <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Next Screen" component={NextScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

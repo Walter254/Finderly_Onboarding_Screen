@@ -27,7 +27,7 @@ const OnboardingScreen = () => {
       >
         <View style={styles.overlay} />
         <View style={styles.textContainer}>
-          <Text style={styles.title}>Snap</Text>
+          <Text style={styles.title}>Snap or</Text>
           <Text style={styles.title}>Upload a Photo</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    width: "100%",
+    height: "100%",
   },
   overlay: {
     position: 'absolute',
