@@ -33,6 +33,15 @@ To match the design from the provided mockup (`finderly.png`), the following com
 - **Responsive Design**: While the layout is designed to be responsive, further enhancements could be made to ensure optimal display on various screen sizes (phones vs. tablets). The current implementation uses percentage-based dimensions and padding to achieve a basic level of responsiveness.
 - **Static Content**: The text content is static for this implementation. Future iterations could include dynamic content, user input, or support for multiple languages to enhance accessibility and user experience.
 
+## Screenshots
+Here are screenshots of the final project for both iOS and Android:
+
+### iOS Screenshot
+![iOS Screenshot](assets/Simulator_iPhone_16_Pro_Max.png)
+
+### Android Screenshot
+![Android Screenshot](/assets/Screenshot_1742065150.png)
+
 ## Conclusion
 This onboarding screen serves as a foundational component for the app, providing a visually appealing and user-friendly introduction. The design closely follows the provided mockup, and the implementation leverages modern React Native practices to ensure clarity and maintainability.
 
