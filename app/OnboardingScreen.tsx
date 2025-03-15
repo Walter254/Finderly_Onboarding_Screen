@@ -1,9 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Animated, SafeAreaView } from 'react-native';
+import { 
+  View, Text, ImageBackground, StyleSheet, TouchableOpacity, 
+  Animated, SafeAreaView, Dimensions, PixelRatio 
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+const { width } = Dimensions.get('window');
 
 const OnboardingScreen = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(50)).current;
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -12,14 +18,20 @@ const OnboardingScreen = () => {
       duration: 1000,
       useNativeDriver: true,
     }).start();
-  }, [fadeAnim]);
+
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 800,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   const handleGetStarted = () => {
     navigation.navigate('Next Screen' as never);
   };
 
   return (
-    <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
+    <Animated.View style={{ ...styles.container, opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}>
       <ImageBackground 
         source={require('../assets/finderly_back_2.png')}
         style={styles.background}
@@ -31,7 +43,7 @@ const OnboardingScreen = () => {
             <Text style={styles.title}>Snap or</Text>
             <Text style={styles.title}>Upload a Photo</Text>
           </View>
-          <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
+          <TouchableOpacity style={styles.button} onPress={handleGetStarted} activeOpacity={0.7}>
             <Text style={styles.buttonText}>Get Started</Text>
           </TouchableOpacity>
         </SafeAreaView>
@@ -68,11 +80,11 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     alignSelf: 'flex-start',  
-    paddingLeft: 60,          
+    paddingLeft: width * 0.15,  
     paddingBottom: 30,       
   },
   title: {
-    fontSize: 35,
+    fontSize: PixelRatio.getFontScale() * 30,  // Dynamic scaling
     fontFamily: 'Poppins',
     color: '#fff',
     textAlign: 'left',         
@@ -80,10 +92,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#007BFF',
-    padding: 15,
-    borderRadius: 25,
-    width: '80%',
-    alignSelf: 'center',       
+    paddingVertical: 13,  
+    borderRadius: 30,
+    width: width * 0.8,  // Scales button width to 80% of screen
+    alignSelf: 'center',
   },
   buttonText: {
     color: '#fff',
@@ -91,6 +103,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
 
 export default OnboardingScreen;
