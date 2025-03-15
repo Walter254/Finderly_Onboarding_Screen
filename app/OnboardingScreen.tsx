@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Animated, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const OnboardingScreen = () => {
@@ -21,18 +21,20 @@ const OnboardingScreen = () => {
   return (
     <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
       <ImageBackground 
-        source={require('../assets/mock_finderly_background.png')}
+        source={require('../assets/finderly_back_2.png')}
         style={styles.background}
         resizeMode="cover"
       >
         <View style={styles.overlay} />
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Snap or</Text>
-          <Text style={styles.title}>Upload a Photo</Text>
-        </View>
-        <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
-          <Text style={styles.buttonText}>Get Started</Text>
-        </TouchableOpacity>
+        <SafeAreaView style={styles.content}>
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>Snap or</Text>
+            <Text style={styles.title}>Upload a Photo</Text>
+          </View>
+          <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
+            <Text style={styles.buttonText}>Get Started</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
       </ImageBackground>
     </Animated.View>
   );
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center', 
     alignItems: 'center',
     width: "100%",
     height: "100%",
@@ -55,28 +57,33 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)', 
+  },
+  content: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'flex-end', 
+    alignItems: 'center',
+    paddingBottom: 60, 
   },
   textContainer: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    paddingVertical: 20,
-    paddingHorizontal: 50,
-    width: '100%',
+    alignSelf: 'flex-start',  
+    paddingLeft: 60,          
+    paddingBottom: 30,       
   },
   title: {
-    fontSize: 30,
+    fontSize: 35,
     fontFamily: 'Poppins',
     color: '#fff',
-    textAlign: 'left',
-    marginBottom: 5,
+    textAlign: 'left',         
+    lineHeight: 50,            
   },
   button: {
     backgroundColor: '#007BFF',
     padding: 15,
-    borderRadius: 20,
-    marginBottom: 40,
-    width: '90%',
+    borderRadius: 25,
+    width: '80%',
+    alignSelf: 'center',       
   },
   buttonText: {
     color: '#fff',
@@ -85,4 +92,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OnboardingScreen; 
+
+export default OnboardingScreen;
